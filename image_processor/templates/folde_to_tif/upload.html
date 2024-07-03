@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container" id="centered-div">
+
+
+        <h1>загружать изображения</h1>
+      <br>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p  }}
+            <br>
+            <button class="button" type="submit">преобразовать в tif</button>
+        </form>
+        {% if zip_file_url %}
+        <h2>Скачивайте преобразованные файлы TIFFs:</h2>
+        <p><a href="{{ zip_file_url }}">Download all converted images (ZIP)</a></p>
+    {% endif %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" id="centered-div">
+    <h1>Выберите папку для преобразования содержимого в формат Tif</h1>
+    <form id="directory-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="directory" webkitdirectory directory multiple name="files" style="display: none;" />
+        <button class="button" type="button" onclick="selectDirectory()">Выберите папку</button>
+        <div id="selected-folder"></div>
+        <button class="button" type="submit">преобразовать в формат tif</button>
+    </form>
+</div>
+    <br>
+    <script>
+        function selectDirectory() {
+            document.getElementById('directory').click();
+        }
+
+        document.getElementById('directory').addEventListener('change', function(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                const folderPath = files[0].webkitRelativePath;
+                const folderName = folderPath.split('/')[0];
+                document.getElementById('selected-folder').innerText = `Selected Folder: ${folderName}`;
+            }
+        });
+    </script>
+{% endblock %}
